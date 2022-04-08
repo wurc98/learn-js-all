@@ -1,0 +1,30 @@
+{
+  "pages": [
+    "pages/pageA/pageA",
+    "pages/pageB/pageB"
+  ],
+  "window": {
+    "navigationBarTitleText": "Demo"
+  },
+  "tabBar": {
+    "selectedColor": "#00BFFF",
+    "color": "#000000",
+    "list": [
+      {
+        "pagePath": "pages/pageA/pageA",
+        "text": "页面A"
+      },
+      {
+        "pagePath": "pages/pageB/pageB",
+        "text": "页面B"
+      }
+    ]
+  },
+  
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true,
+  "sitemapLocation": "sitemap.json"
+}

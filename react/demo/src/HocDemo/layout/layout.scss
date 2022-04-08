@@ -1,0 +1,38 @@
+.layout {
+    display: flex;
+    flex-wrap: wrap;
+    .header-nav {
+        width: 100vw;
+        height: 60px;
+        border-bottom: 1px solid gray;
+    }
+    .content {
+        display: flex;
+        width: 100vw;
+        height: calc(100vh - 60px);
+        .left-nav {
+            width: 8vw;
+            text-align: center;
+            height: 100%;
+            border-right: 1px solid goldenrod;
+            .left-nav-list {
+                width: 100%;
+                li {
+                    line-height: 60px;
+                    height: 60px;
+                    border-bottom: 1px solid goldenrod;
+                }
+            }
+        }
+        .container {
+            width: 92vw;
+            padding: 1vh 2vw;
+        }
+    }
+}
+li,
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}

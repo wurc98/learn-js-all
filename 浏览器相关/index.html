@@ -1,0 +1,53 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-07-26 11:26:27
+ * @LastEditTime: 2021-07-26 11:30:53
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \正式d:\学习文件夹\jsBoost\浏览器相关\index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #parent {
+        background-color: bisque;
+        height: 300px;
+        width: 300px;
+    }
+    #child {
+        background-color: chartreuse;
+        height: 200px;
+        width: 200px; 
+    }
+    #son {
+        background-color: pink;
+        height: 100px;
+        width: 100px; 
+    }
+    .flex-center{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<body>
+    <div id='parent' class="flex-center">
+        parent
+        <div id='child' class="flex-center">
+            child
+            <div id='son' class="flex-center">
+                son
+            </div> 
+        </div>
+    </div>
+</body>
+<script src="./index.js"></script>
+
+</html>

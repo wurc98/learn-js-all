@@ -1,0 +1,2 @@
+<view bindtap="changeMessage" class="container">{{message}}</view>
+<UserInfo name='{{name}}' bindtest='bindtestcb'></UserInfo>

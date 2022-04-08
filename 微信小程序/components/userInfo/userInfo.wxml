@@ -1,0 +1,6 @@
+<view>
+  <view bindtap="clickMe">{{name}}</view>
+  <view>{{age}}</view>
+  <view>{{message}}</view>
+  <vantButton type='primary' bindtap="clickMe">123</vantButton>
+</view>

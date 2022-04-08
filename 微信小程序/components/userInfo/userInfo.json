@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "vantButton":"vant-weapp/button"
+  }
+}

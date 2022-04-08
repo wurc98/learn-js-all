@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+</head>
+
+<body>
+    <div id='app'></div>
+</body>
+<script>
+    // 通过插件，找到组件，判断是不是react 组件，如果是 就走 特殊处理
+
+    import A from './reactComponent'
+
+    const isReactComponent = component => {
+        return !(
+            typeof component === 'function' &&
+            component.prototype.constructor.super &&
+            (
+                component.prototype.constructor.super.isVue ||
+                component.prototype instanceof Vue
+            )
+        )
+    }
+
+    // HOC
+    const makeReactComponent = component => {
+        return class ReactRunInVue extends React.Component{
+            static displayName =  'vue-react'
+            constructor(props){
+                super(props)
+                this.state={
+                    ...props
+                }
+            }
+            render(){
+                const {children,...rest} = this.state
+            }
+        }
+     }
+
+    const ReactWrapper = {
+        porps: ['component'],
+        render(h) {
+            return h('div', {
+                ref: 'react'
+            })
+        },
+        methods: {
+            //在dom挂载之后，去渲染React组件到div上面
+            // 本质上React 要在 Vue 上跑，就是要渲染到一个div上面
+            // TO
+            mountReactComponent(component) {
+                const Component = makeReactComponent(component)
+                const children = this.$slots.default !== void 0
+                    ? { children: this.$slots.default }
+                    : {}
+                ReactDom.render(
+                    React.createElement(
+                        Component,
+                        { ...this.attrs, ...this.$listeners, ...children, ref: ref => { this.reactComponetRef = ref } }
+                    ),
+                    this.$refs.react
+                )
+            }
+        },
+        mounted() {
+            this.mountReactComponent(this.props.component)
+        },
+        beforeDestroy() {
+            ReactDOM.unmountComponentAtNode(this.$refs.react)
+        },
+        inheritAttrs: false,
+        watch: {
+            $attrs: {
+                handle() {
+                    this.reactComponetRef.setState({ ...this.$attrs })
+                },
+                deep: true
+            },
+            '$props.component':{
+                handle(newComponent){
+                    this.mountReactComponent(newComponent)
+                }
+            }
+        }
+    }
+
+    const reactResolve = component => {
+        // 遇事不决，多加一层
+
+        return {
+            components: {
+                ReactWrapper
+            },
+            props: [],
+            inheritAttrs: false,
+            render(h) {
+                return h(
+                    'react-wrapper',
+                    {
+                        props: { component },
+                        attrs: this.$attrs,
+                        on: this.$listeners
+                    },
+                    this.$slots.default
+                )
+            }
+        }
+    }
+
+
+    const ReactRuninVue = {
+        install(Vue, options) {
+            const originalComponentsOptionMergeStrategies = Vue.config.optionMergeStrategies.components;
+            Vue.config.optionMergeStrategies.components = (parent, ...args) => {
+                // 执行原策略
+                const mergedComponentsOptions = originalComponentsOptionMergeStrategies(arent, ...args)
+                // 判断，走不走React组件逻辑
+                const wrappedComponents = mergedComponentsOptions
+                    /**
+                     * 解析对象成为数组，通过reduce遍历该数组拿到k,v,然后重新拼接成对象{}
+                     * acc 表示上次遍历的结果。
+                     * reduce第二参数为初始值
+                     */
+
+                    ? Object.entries(mergedComponentsOptions).reduce((acc, [k, v]) => ({
+                        ...acc,
+                        [k]: isReactComponet(v) ? reactResolve(v) : v
+                    }), {})
+                    : mergedComponentsOptions
+
+
+                return Object.assign(mergedComponentsOptions, wrappedComponents)
+            }
+
+            Vue.prototype.constructor.isVue = true
+        }
+    }
+
+</script>
+
+</html>

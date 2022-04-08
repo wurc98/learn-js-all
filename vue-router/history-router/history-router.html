@@ -1,0 +1,59 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-08-27 16:16:38
+ * @LastEditTime: 2021-08-27 17:31:30
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \正式d:\学习文件夹\jsBoost\vue-router\hash-router\hash-router.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        li,
+        ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        .box {
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: space-between;
+            width: 90vw;
+            height: 20vh;
+            margin: auto;
+            color: white;
+            background-color: #333;
+        }
+        .box >li{
+            width: 20%;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+    <ul class="box">
+        <li><a href="/">白色</a></li>
+        <li><a href="/grey">灰色</a></li>
+        <li><a href="/yellow">黄色</a></li>
+        <li><a href="/green">绿色</a></li>
+        <li>
+            <button onclick="window.history.go(-1)">返回</button>
+        </li>
+    </ul>
+
+    <script src="./index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+.DS_Store
+.history
+node_modules
+/资料
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

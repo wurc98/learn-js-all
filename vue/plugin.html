@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.js"></script>
+<body>
+    <div id='app'>
+        hello world
+    </div>
+    <script>
+
+        const logger  = {
+            install(Vue,options){
+                //  参数的处理 
+                Object.defineProperty(Vue.prototype,"$log",{
+                    value:value=>console.log('打印日志'+value),
+                    configurable:false,
+                    enumerable:false,
+                    writable:false   
+                })
+            }
+        }
+
+        Vue.use(logger)
+
+        new Vue({
+            el:'#app',
+            created(){
+                this.$log(123);
+            }
+        })
+
+
+    </script>
+</body>
+</html>
